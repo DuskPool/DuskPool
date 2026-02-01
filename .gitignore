@@ -1,0 +1,20 @@
+# Rust's output directory
+target
+
+# Local settings
+.soroban
+.stellar
+
+**/node_modules/
+test-output/** 
+
+# Explicit node_modules entries (added manually)
+/prover/node_modules/
+/circuits/node_modules/
+/matching-engine/node_modules/
+
+docs/
+
+# Large circuit files
+*.ptau
+circuits/build/ 

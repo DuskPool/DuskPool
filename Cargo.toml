@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = [
+    "contracts/registry",
+    "contracts/orderbook",
+    "contracts/settlement",
+    "contracts/verifier",
+    "libs/lean-imt-bn254",
+    "libs/zk-bn254",
+]
+
+[workspace.dependencies]
+soroban-sdk = { version = "25.0.2" }
+soroban-poseidon = { version = "25.0.0" }
+
+[workspace.package]
+rust-version = "1.89.0"
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
