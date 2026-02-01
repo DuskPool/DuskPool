@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Custom brand color */
+@theme {
+  --color-brand-stellar: #7d00ff;
+}
+
+/* Custom animations */
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.8s ease-out;
+}
+
+/* Font families */
+.font-condensed {
+  font-family: 'Oswald', 'Impact', 'Arial Narrow', sans-serif;
+  font-stretch: condensed;
+}
+
+.font-oswald {
+  font-family: 'Oswald', sans-serif;
+}
+
+/* 3D transforms */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-y-12 {
+  transform: rotateY(12deg);
+}
+
+.-rotate-y-12 {
+  transform: rotateY(-12deg);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
