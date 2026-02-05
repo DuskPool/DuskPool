@@ -34,7 +34,7 @@ const AssetCard: React.FC<AssetCardProps> = ({ type, isMain = false }) => {
   const details = getAssetDetails();
 
   return (
-    <div className={`relative w-full h-full group overflow-hidden ${isMain ? 'rounded-2xl' : 'rounded-xl'}`}>
+    <div className={`relative w-full h-full group overflow-hidden`}>
 
       {/* Card Container */}
       <div className={`

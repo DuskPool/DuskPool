@@ -1,28 +1,75 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Home from './components/Home';
+import Trade from './components/Trade';
+import Dashboard from './components/Dashboard';
+import Escrow from './components/Escrow';
+import History from './components/History';
+import Markets from './components/Markets';
 import BackgroundEffects from './components/BackgroundEffects';
 import Sidebar from './components/Sidebar';
+import HUDFrame from './components/HUDFrame';
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const currentPath = location.pathname;
 
   useEffect(() => {
-    // Simulate asset loading for smooth entrance
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  const handleConnect = () => {
+    setIsConnected(true);
+    navigate('/dashboard');
+  };
+
+  const handleDisconnect = () => {
+    setIsConnected(false);
+    navigate('/');
+  };
+
+  // Determine if we're on the home page
+  const isHomePage = currentPath === '/';
+
   return (
-    <div className="relative w-full min-h-screen bg-black text-white overflow-hidden selection:bg-white/20 selection:text-white">
+    <div className="relative w-full h-screen bg-black text-white overflow-hidden selection:bg-brand-stellar/30 selection:text-white">
       <BackgroundEffects />
 
-      <div className={`transition-opacity duration-1000 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <Header />
-        <Sidebar />
+      <HUDFrame />
+      <div className={`h-full transition-opacity duration-1000 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        <Header
+          currentPath={currentPath}
+          isConnected={isConnected}
+          onConnect={handleConnect}
+          onDisconnect={handleDisconnect}
+        />
 
-        <main className="relative z-10 w-full h-screen flex flex-col items-center justify-center pt-16">
-          <Hero />
+        {/* Show Sidebar on all pages except home */}
+        {!isHomePage && (
+          <Sidebar
+            currentPath={currentPath}
+            isConnected={isConnected}
+          />
+        )}
+
+        <main id="main-scroll-container" className={`relative z-10 w-full h-full flex flex-col pt-14 overflow-auto ${!isHomePage ? 'ml-20' : ''}`}>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/trade" element={<Trade />} />
+
+            {/* Protected Routes (when connected) */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/escrow" element={<Escrow />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/markets" element={<Markets />} />
+          </Routes>
         </main>
       </div>
 
