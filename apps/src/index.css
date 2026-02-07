@@ -1,4 +1,119 @@
 @import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+/* GitHub Dark Theme for highlight.js (code blocks in blog) */
+.hljs {
+  color: #e6edf3;
+  background: transparent;
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: #ff7b72;
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #79c0ff;
+}
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: #a5d6ff;
+}
+.hljs-built_in,
+.hljs-symbol {
+  color: #ffa657;
+}
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  color: #8b949e;
+}
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  color: #7ee787;
+}
+.hljs-subst {
+  color: #e6edf3;
+}
+.hljs-section {
+  color: #79c0ff;
+  font-weight: bold;
+}
+.hljs-bullet {
+  color: #f2cc60;
+}
+.hljs-emphasis {
+  color: #e6edf3;
+  font-style: italic;
+}
+.hljs-strong {
+  color: #e6edf3;
+  font-weight: bold;
+}
+.hljs-addition {
+  color: #aff5b4;
+  background-color: rgba(46, 160, 67, 0.15);
+}
+.hljs-deletion {
+  color: #ffdcd7;
+  background-color: rgba(248, 81, 73, 0.15);
+}
+
+/* KaTeX overrides for light theme */
+.katex {
+  color: #24292e;
+}
+.katex .mord,
+.katex .mbin,
+.katex .mrel,
+.katex .minner,
+.katex .mopen,
+.katex .mclose,
+.katex .mpunct,
+.katex .mop {
+  color: #24292e;
+}
+.katex-display {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.katex-display > .katex {
+  white-space: nowrap;
+}
+
+/* Dot leaders for blog list */
+.dot-leaders {
+  text-align: end;
+  height: 1em;
+  overflow: hidden;
+  word-wrap: break-word;
+  letter-spacing: 6px;
+}
+.dot-leaders::after {
+  content: '······································································';
+}
 
 /* Custom brand color */
 @theme {
@@ -62,6 +177,19 @@
 
 .animate-shrink-width {
   animation: shrink-width linear forwards;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.2s ease-out;
 }
 
 /* Font families */

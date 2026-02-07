@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -12,15 +12,17 @@ import BackgroundEffects from './components/BackgroundEffects';
 import Sidebar from './components/Sidebar';
 import HUDFrame from './components/HUDFrame';
 import NotFound from './components/NotFound';
+import { Blog, BlogPost } from './components/Blog';
 import { useWallet } from './hooks/useWallet';
 
-const App: React.FC = () => {
+const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { isConnected } = useWallet();
   const location = useLocation();
   const navigate = useNavigate();
 
   const currentPath = location.pathname;
+  const isBlogPage = currentPath.startsWith('/blog');
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
@@ -37,6 +39,17 @@ const App: React.FC = () => {
   // Determine if we're on the home page
   const isHomePage = currentPath === '/';
 
+  // Blog pages get their own clean layout - completely separate from main app
+  if (isBlogPage) {
+    return (
+      <Routes>
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+      </Routes>
+    );
+  }
+
+  // Main app layout with dark theme, sidebar, header, etc.
   return (
     <div className="relative w-full h-screen bg-black text-white overflow-hidden selection:bg-brand-stellar/30 selection:text-white">
       <BackgroundEffects />
