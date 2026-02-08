@@ -1,6 +1,6 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!.*\\.(?:png|jpg|svg|ico|webp|json|js|css|woff2?|ttf)$).*)", "destination": "/index.html" }
   ]
 }
