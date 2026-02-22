@@ -32,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath = '/', isConnected = fals
       {/* Navigation Items */}
       {navItems.map((item) => {
         const Icon = item.icon;
-        const isActive = currentPath === item.path;
+        const isActive = currentPath === item.path || (item.path === '/blog' && currentPath.startsWith('/blog'));
         return (
           <Link
             key={item.path}
