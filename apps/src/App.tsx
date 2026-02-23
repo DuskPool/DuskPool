@@ -42,10 +42,21 @@ const App = () => {
   // Blog pages get their own clean layout - completely separate from main app
   if (isBlogPage) {
     return (
-      <Routes>
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-      </Routes>
+      <div className="relative w-full h-screen bg-black text-white overflow-hidden selection:bg-brand-stellar/30 selection:text-white">
+        <div className={`h-full transition-opacity duration-1000 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+          <Sidebar
+            currentPath={currentPath}
+            isConnected={isConnected}
+          />
+
+          <main id="main-scroll-container" className="relative z-10 h-full flex flex-col overflow-auto w-full lg:ml-20 lg:w-[calc(100%-5rem)]">
+            <Routes>
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+            </Routes>
+          </main>
+        </div>
+      </div>
     );
   }
 
