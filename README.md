@@ -8,6 +8,25 @@ This project enables institutional trading of tokenized assets (bonds, treasurie
 
 The system uses Poseidon hashes for order commitments and Merkle tree proofs for whitelist verification. Settlement happens atomically on-chain after ZK proof verification.
 
+## Architecture
+
+Detailed architecture walkthrough: https://duskpool-archi.vercel.app/
+
+DuskPool follows a commit -> match -> prove -> settle model:
+
+1. **KYC onboarding**: Participant identity hashes are added to an on-chain Merkle whitelist root (depth 20).
+2. **Escrow funding**: Traders deposit assets into the settlement escrow, with balances tracked per participant and asset.
+3. **Order submission**: Traders submit commitment-only orders using `Poseidon(asset, side, qty, price, nonce, secret)`, while sensitive order values remain private.
+4. **Order matching**: The off-chain matching engine validates order preimages and applies price-time matching logic.
+5. **ZK proof generation**: A Groth16 (BN254) proof is generated off-chain to prove whitelist inclusion, commitment validity, trade consistency, and nullifier derivation.
+6. **On-chain verification**: The verifier contract checks proof validity from proof bytes and public signals.
+7. **Atomic settlement**: The settlement contract verifies authorizations, proof validity, nullifier uniqueness, and executes atomic escrow swaps.
+
+### Public vs Private Data
+
+- **Public on-chain**: order commitments, match metadata, proof bytes/public signals, whitelist root, nullifier, and settlement records.
+- **Private off-chain**: KYC documents, identity details, price/quantity preimages, nonces/secrets, and matching strategy details.
+
 ## Project Structure
 
 ```
